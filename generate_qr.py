@@ -29,7 +29,7 @@ def get_args():
     if len(sys.argv) > 2:
         base_url = sys.argv[2]
     else:
-        base_url = input("Specify the base URL for the QR codes")
+        base_url = input("Specify the base URL for the QR codes: ")
 
     args = {
         "folder": folder,
