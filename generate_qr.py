@@ -48,18 +48,30 @@ def make_random_string(length):
     return ''.join(random.choices(string.digits + string.ascii_uppercase, k=length))
 
 def generate_qrs(base_url, folder, quantity):
-    for i in tqdm(range(quantity), desc='Generating QR codes'):
+    nonces = []
+    for _ in tqdm(range(quantity), desc='Generating QR codes'):
         nonce = make_random_string(LENGTH)
         value = f'{base_url}{nonce}'
         qrcode = segno.make_qr(value)
-        qrcode.save(os.path.join(folder, f'{nonce}.png'))
+        filename = f'{nonce}.png'
+        qrcode.save(os.path.join(folder, filename))
+        nonces.append(filename)
+    return nonces
+
+def write_to_file(nonces, folder):
+    nonces_text = '\n'.join(nonces)
+    with open(f'{folder}.csv', 'w') as f_out:
+        f_out.write("QR Codes\n")
+        f_out.write(nonces_text)
+    print(f'QR code values saved to file: {folder}.csv')
 
 def main():
     args = get_args()
     base_url = args["base_url"]
     folder = args["folder"]
     make_folder(folder)
-    generate_qrs(base_url, folder, QUANTITY)
+    nonces = generate_qrs(base_url, folder, QUANTITY)
+    write_to_file(nonces, folder)
 
 if __name__ == '__main__':
     main()
