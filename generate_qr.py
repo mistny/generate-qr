@@ -52,9 +52,9 @@ def generate_qrs(base_url, folder, quantity):
     for _ in tqdm(range(quantity), desc='Generating QR codes'):
         nonce = make_random_string(LENGTH)
         value = f'{base_url}{nonce}'
-        qrcode = segno.make_qr(value)
+        qrcode = segno.make_qr(value, error='M')
         filename = f'{nonce}.png'
-        qrcode.save(os.path.join(folder, filename))
+        qrcode.save(os.path.join(folder, filename), scale=10)
         nonces.append(filename)
     return nonces
 
