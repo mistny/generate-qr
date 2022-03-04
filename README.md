@@ -11,6 +11,7 @@ Python script to generate QR codes for MIST badges
 ### 1. Folder
 This is the folder that the generated QR code images will be saved in. Make
 sure that there does not already exist a folder/file with the same name.
+A CSV of all the QR Codes filenames is saved to `folder_name.csv`.
 
 ### 2. Base URL
 If the QR code points to https://example.com/?qr=RANDOM_BADGE_CODE, then the
